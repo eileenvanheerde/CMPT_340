@@ -1,0 +1,193 @@
+/* Eileen van Heerde */
+/* 11158459, evv446  */
+/* CMPT 340, Asn2    */
+
+
+***************
+** PROBLEM 2 **
+***************
+// For my_curry & my_uncurry I passed in both a tuple and 3 separate values
+//   to illustrate that they only work with the proper input.
+
+*Main> (my_uncurry averageThree) (3,1,2)
+2.0
+*Main> (my_uncurry averageThree) 3 1 2
+
+<interactive>:6:1: error:
+    • Couldn't match expected type ‘Integer -> Integer -> t’
+                  with actual type ‘Float’
+    • The function ‘my_uncurry’ is applied to four arguments,
+      but its type ‘(Integer -> Integer -> Integer -> Float)
+                    -> (Integer, Integer, Integer) -> Float’
+      has only two
+      In the expression: (my_uncurry averageThree) 3 1 2
+      In an equation for ‘it’: it = (my_uncurry averageThree) 3 1 2
+    • Relevant bindings include it :: t (bound at <interactive>:6:1)
+
+*Main> (my_curry averageThreeInOne) 3 1 2
+2.0
+*Main> (my_curry averageThreeInOne) (3,2,1)
+
+<interactive>:3:30: error:
+    • Couldn't match expected type ‘Integer’
+                  with actual type ‘(Integer, Integer, Integer)’
+    • In the second argument of ‘my_curry’, namely ‘(3, 2, 1)’
+      In the expression: (my_curry averageThreeInOne) (3, 2, 1)
+
+***************
+** PROBLEM 3 **
+***************
+
+// Check if data type even works (it does :p)
+Ok, one module loaded.
+*Main> MyFraction (1, 2)
+MyFraction (1,2)
+
+
+// Checks for Equality
+// Checked (1/2 == 1/2), (1/2 == 1/3), & (1/2 == 2/4)
+*Main> MyFraction (1, 2) == MyFraction (1, 2)
+True
+*Main> MyFraction (1, 2) == MyFraction (1, 3)
+False
+*Main> MyFraction (1, 2) == MyFraction (2, 4)
+True
+*Main> MyFraction (1, 2) == MyFraction (3, 6)
+True
+
+// Checks Smaller than or equal to
+*Main> MyFraction (1,2) <= MyFraction (1,2)
+True
+*Main> MyFraction (1,2) <= MyFraction (1,3)
+False
+*Main> MyFraction (1,4) <= MyFraction (1,3)
+True
+
+// Check addition
+*Main> MyFraction (1,4) + MyFraction (2,4)
+MyFraction (3,4)
+*Main> MyFraction (1,4) + MyFraction (2,4)
+MyFraction (3,4)
+*Main> MyFraction (1,4) + MyFraction (2,3)
+MyFraction (11,12)
+
+// check multiplication
+*Main> MyFraction (1,2) * MyFraction (1,2)
+MyFraction (1,4)
+*Main> MyFraction (1,2) * MyFraction (2,3)
+MyFraction (1,3)
+*Main> MyFraction (1,4) * MyFraction (5,3)
+MyFraction (5,12)
+
+		
+// check subtraction
+*Main> MyFraction (2,4) - MyFraction (1,4)
+MyFraction (1,4)
+*Main> MyFraction (1,4) - MyFraction (2,4)
+MyFraction (-1,4)
+*Main> MyFraction (1,4) - MyFraction (2,5)
+MyFraction (-3,20)
+*Main> MyFraction (3,4) - MyFraction (2,5)
+MyFraction (7,20)
+
+// check division
+*Main> MyFraction (1,4) / MyFraction (1,4)
+MyFraction (1,1)
+*Main> MyFraction (4,8) / MyFraction (1,2)
+MyFraction (1,1)
+*Main> MyFraction (1,8) / MyFraction (1,2)
+MyFraction (1,4)
+*Main> MyFraction (3,4) / MyFraction (1,4)
+MyFraction (3,1)
+
+// Check Greater than or Equal to
+*Main> MyFraction (1,4) >= MyFraction (1,3)
+False
+*Main> MyFraction (1,2) >= MyFraction (1,3)
+True
+*Main> MyFraction (1,2) >= MyFraction (1,2)
+True
+
+// Check Greater Than
+*Main> MyFraction (1,2) > MyFraction (1,2)
+False
+*Main> MyFraction (1,2) > MyFraction (1,3)
+True
+*Main> MyFraction (1,4) > MyFraction (1,3)
+False
+
+// Check Less Than
+*Main> MyFraction (1,4) < MyFraction (1,3)
+True
+*Main> MyFraction (1,2) < MyFraction (1,3)
+False
+*Main> MyFraction (1,2) < MyFraction (1,2)
+False
+
+// Check abs()
+Ok, one module loaded.
+*Main> abs (MyFraction ((-1),2))
+MyFraction (1,2)
+*Main> abs (MyFraction ((1),2))
+MyFraction (1,2)
+
+// Check negation
+*Main> negate (MyFraction ((1),2))
+MyFraction (-1,2)
+*Main> negate (MyFraction ((-1),2))
+MyFraction (1,2)
+
+
+
+
+***************
+** PROBLEM 4 **
+***************
+// Part A
+// Check that shuffle works
+Ok, one module loaded.
+*Main> shuffle [1,2,3] [4,5,6]
+[1,4,2,5,3,6]
+*Main> shuffle [1,2,3] [4,5,6,7,8]
+[1,4,2,5,3,6,7,8]
+*Main> shuffle [1,2,3,4,5] [6,7,8]
+[1,6,2,7,3,8,4,5]
+
+// Part B
+*Main> split [1,2,3,4,5] 0
+[[],[1,2,3,4,5]]
+*Main> split [1,2,3,4,5] 2
+[[1,2],[3,4,5]]
+*Main> split [1,2,3,4,5] 25
+[[1,2,3,4,5],[]]
+*Main> split [1,2,3,4,5] 4
+[[1,2,3,4],[5]]
+*Main> split [] 4
+[]
+
+// Part C
+Ok, one module loaded.
+*Main> outShuffle [1,2,3,4,5,6]
+[1,4,2,5,3,6]
+*Main> inShuffle [1,2,3,4,5,6]
+[4,1,5,2,6,3]
+*Main> outShuffle [1,2,3,4,5,6,7,8]
+[1,5,2,6,3,7,4,8]
+*Main> inShuffle [1,2,3,4,5,6,7,8]
+[5,1,6,2,7,3,8,4]
+
+// Part D 
+// a)
+*Main> howManyShuffles outshuffle (outshuffle [1..52]) [1..52]
+7
+
+// Part D
+// b)
+*Main> howManyShuffles inshuffle [1..52] [52,51..1]
+26
+
+
+
+
+
+

@@ -1,0 +1,34 @@
+/* Eileen van Heerde */
+/* 1115845, evv446   */
+/* CMPT 340 - Asn2   */
+
+/*************/
+/* PROBLEM 1 */
+/*************/
+
+or false (not true)
+
+\v.\w.(v v w) false (not true)
+
+\w.(false false w) (not true)
+
+(false false (not true))
+
+\x.\y.(y) false (not true)
+
+\y.(y) (not true)
+
+(not true)
+
+\v.\w.\x.(v x w) true
+
+\w.\x.(true x w)
+
+\w.\x.(\x.\y.(x) x w)
+
+\w.\x.(\y.(x) w)
+
+\w.\x.(x) => FALSE
+
+
+
